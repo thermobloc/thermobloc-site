@@ -111,12 +111,12 @@ hoverIndicator.innerHTML = `
 document.body.appendChild(hoverIndicator);
 
 function moveHoverIndicator(event) {
-  hoverIndicator.style.left = `${event.clientX + 16}px`;
-  hoverIndicator.style.top = `${event.clientY + 16}px`;
+  hoverIndicator.style.left = `${event.clientX + 12}px`;
+  hoverIndicator.style.top = `${event.clientY + 12}px`;
 }
 
 function hideHoverIndicator() {
-  hoverIndicator.classList.remove("active");
+  hoverIndicator.classList.remove("active", "completed");
   hoverIndicator.style.left = "-9999px";
   hoverIndicator.style.top = "-9999px";
 }
@@ -136,17 +136,23 @@ function startHoverChange(button, event) {
   moveHoverIndicator(event);
 
   // Force le redémarrage complet de l'animation
-  hoverIndicator.classList.remove("active");
+  hoverIndicator.classList.remove("active", "completed");
   void hoverIndicator.offsetWidth;
   hoverIndicator.classList.add("active");
 
   hoverTimer = setTimeout(() => {
     if (hoveredButton === button) {
       showSection(button.dataset.section);
-    }
 
-    cancelHoverChange();
-  }, 3200);
+      // À 3 secondes : les points deviennent verts
+      hoverIndicator.classList.add("completed");
+
+      // Après 0,5 seconde : les points disparaissent
+      setTimeout(() => {
+        cancelHoverChange();
+      }, 500);
+    }
+  }, 3000);
 }
 
 function showSection(section) {

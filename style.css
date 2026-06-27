@@ -154,7 +154,7 @@ body {
 .hover-indicator {
   position: fixed;
   display: flex;
-  gap: 5px;
+  gap: 2px;
   pointer-events: none;
   z-index: 9999;
   opacity: 0;
@@ -166,8 +166,8 @@ body {
 }
 
 .hover-indicator span {
-  width: 9px;
-  height: 9px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: white;
   border: 1px solid #e30613;
@@ -185,6 +185,12 @@ body {
 .hover-indicator.active span:nth-child(3) {
   animation: dotRed 0.8s linear forwards;
   animation-delay: 2s;
+}
+
+.hover-indicator.active.completed span {
+  animation: none !important;
+  background: #00b050 !important;
+  border-color: #00b050 !important;
 }
 
 @keyframes dotRed {
